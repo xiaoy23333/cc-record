@@ -1916,12 +1916,10 @@ void saveAndExit()
 
 int main()
 {
-	ios::sync_with_stdio(0);
-	cin.tie(0);
-	cout.tie(0);
+	system("chcp 65001 > nul");  // 设置控制台编码为UTF-8，防止中文乱码
 
 	cout << "========================================" << endl;
-	cout << "     唱片销售管理系统 v1.0" << endl;
+	cout << "     唱片销售管理系统     " << endl;
 	cout << "========================================" << endl;
 
 	// 密码校验

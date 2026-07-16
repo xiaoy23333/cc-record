@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "iostream": "cpp",
+        "bits/stdc++.h": "cpp"
+    },
+    "code-runner.runInTerminal": true,
+    "code-runner.saveFileBeforeRun": true,
+    "code-runner.clearPreviousOutput": true,
+    "code-runner.executorMap": {
+        "cpp": "cd \"$dirWithoutTrailingSlash\" && C:\\mingw64\\bin\\g++.exe \"$fileName\" -o \"$fileNameWithoutExt.exe\" -g && \"$fileNameWithoutExt.exe\""
+    }
+}
