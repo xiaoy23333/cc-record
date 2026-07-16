@@ -1948,6 +1948,14 @@ int main()
 		cout << "========================================" << endl;
 		cout << "请选择(1-10): ";
 		cin >> choice;
+		// 处理错误的输入
+		if(cin.fail())
+		{
+			cin.clear();                  // 清除错误状态
+			cin.ignore(10000, '\n');      // 丢弃缓冲区中的错误内容
+			cout << "输入有误，请重新选择！" << endl;
+			continue;
+		}
 
 		switch(choice)
 		{
