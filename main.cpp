@@ -13,53 +13,53 @@ using namespace std;
 // 唱片基本信息
 typedef struct record
 {
-	int id;                  // 唱片编号
-	char name[50];           // 唱片名
-	char singer[50];         // 歌手名
-	char style[30];          // 风格
-	double price;            // 价格
-	char release_date[20];   // 发行日期
-	char note[100];          // 备注
-	struct record *next;     // 链表指针
+	int id;    // 唱片编号
+	char name[50];    // 唱片名
+	char singer[50];    // 歌手名
+	char style[30];    // 风格
+	double price;    // 价格
+	char release_date[20];    // 发行日期
+	char note[100];    // 备注
+	struct record *next;    // 链表指针
 } Record;
 
 // 进货信息
 typedef struct input_record
 {
-	int id;                  // 唱片编号
-	char name[50];           // 唱片名称
-	int quantity;            // 进货数量
-	char date[20];           // 进货日期
-	char operator_name[30];  // 进货人
+	int id;    // 唱片编号
+	char name[50];    // 唱片名称
+	int quantity;    // 进货数量
+	char date[20];    // 进货日期
+	char operator_name[30];    // 进货人
 	struct input_record *next;
 } InputRecord;
 
 // 库存信息
 typedef struct stock_record
 {
-	int id;                  // 唱片编号
-	char name[50];           // 唱片名称
-	int stock_qty;           // 库存数量
-	int input_qty;           // 进货累计数量
-	int sell_qty;            // 销售累计数量
+	int id;     // 唱片编号
+	char name[50];    // 唱片名称
+	int stock_qty;    // 库存数量
+	int input_qty;    // 进货累计数量
+	int sell_qty;    // 销售累计数量
 	struct stock_record *next;
 } StockRecord;
 
 // 销售信息
 typedef struct sell_record
 {
-	int sell_id;             // 销售编号
-	int record_id;           // 唱片编号
+	int sell_id;    // 销售编号
+	int record_id;    // 唱片编号
 	char record_name[50];    // 唱片名称
-	double sell_price;       // 销售价格
-	int sell_qty;            // 销售数量
-	double sell_amount;      // 销售金额
-	char customer_name[30];  // 客户名称
-	char sell_date[20];      // 销售日期
+	double sell_price;    // 销售价格
+	int sell_qty;    // 销售数量
+	double sell_amount;    // 销售金额
+	char customer_name[30];    // 客户名称
+	char sell_date[20];    // 销售日期
 	struct sell_record *next;
 } SellRecord;
 
-// ===== 全局变量 =====
+//  全局变量 
 
 // 链表头指针
 Record *record_head = 0;
@@ -75,12 +75,12 @@ SellRecord *sell_head = 0;
 #define SELL_FILE "record_sell.dat"
 #define LOG_FILE "log.txt"
 
-// ===== 辅助函数 =====
+//  辅助函数 
 
 /*
- * 函数：writeLog()
- * 功能：记录操作日志到 log.txt
- * 参数：操作类型、操作内容
+函数：writeLog()
+功能：记录操作日志到 log.txt
+参数：操作类型、操作内容
  */
 void writeLog(const char *type, const char *content)
 {
@@ -104,11 +104,11 @@ void writeLog(const char *type, const char *content)
 	fclose(fp);
 }
 
-// ===== 文件加载函数 =====
+//  文件加载函数 
 
 /*
- * 函数：loadPassword()
- * 功能：检查密码文件，首次运行则设置密码，否则校验密码
+函数：loadPassword()
+功能：检查密码文件，首次运行则设置密码，否则校验密码
  */
 void loadPassword()
 {
@@ -149,8 +149,8 @@ void loadPassword()
 }
 
 /*
- * 函数：loadAllData()
- * 功能：从文件加载全部数据到链表
+函数：loadAllData()
+功能：从文件加载全部数据到链表
  */
 void loadAllData()
 {
@@ -267,8 +267,8 @@ void loadAllData()
 }
 
 /*
- * 函数：saveAllData()
- * 功能：将链表数据保存到文件
+函数：saveAllData()
+功能：将链表数据保存到文件
  */
 void saveAllData()
 {
@@ -327,12 +327,12 @@ void saveAllData()
 	}
 }
 
-// ===== 功能函数（空壳占位） =====
+//  功能函数（空壳占位） 
 
 /*
- * 函数：modifyPassword()
- * 功能：修改系统密码
- * 菜单：1
+函数：modifyPassword()
+功能：修改系统密码
+菜单：1
  */
 void modifyPassword()
 {
@@ -366,9 +366,9 @@ void modifyPassword()
 }
 
 /*
- * 函数：addRecord()
- * 功能：录入唱片基本信息
- * 菜单：2
+函数：addRecord()
+功能：录入唱片基本信息
+菜单：2
  */
 void addRecord()
 {
@@ -431,9 +431,9 @@ void addRecord()
 }
 
 /*
- * 函数：inputRecord()
- * 功能：唱片进货管理
- * 菜单：3
+函数：inputRecord()
+功能：唱片进货管理
+菜单：3
  */
 void inputRecord()
 {
@@ -538,9 +538,9 @@ void inputRecord()
 }
 
 /*
- * 函数：sellRecord()
- * 功能：唱片销售管理
- * 菜单：4
+函数：sellRecord()
+功能：唱片销售管理
+菜单：4
  */
 void sellRecord()
 {
@@ -651,9 +651,9 @@ void sellRecord()
 }
 
 /*
- * 函数：modifyRecord()
- * 功能：修改唱片基本信息（含修改+删除子菜单）
- * 菜单：5
+函数：modifyRecord()
+功能：修改唱片基本信息（含修改+删除子菜单）
+菜单：5
  */
 void modifyRecord()
 {
@@ -759,9 +759,9 @@ void modifyRecord()
 }
 
 /*
- * 函数：showAll()
- * 功能：输出全部信息
- * 菜单：6
+函数：showAll()
+功能：输出全部信息
+菜单：6
  */
 void showAll()
 {
@@ -771,7 +771,7 @@ void showAll()
 	SellRecord *sr;
 
 	// 输出唱片基本信息
-	cout << "===== 唱片基本信息 =====" << endl;
+	cout << " 唱片基本信息 " << endl;
 	if(record_head == 0)
 	{
 		cout << "暂无数据" << endl;
@@ -815,7 +815,7 @@ void showAll()
 	}
 
 	// 输出库存信息
-	cout << "===== 唱片库存信息 =====" << endl;
+	cout << " 唱片库存信息 " << endl;
 	if(stock_head == 0)
 	{
 		cout << "暂无数据" << endl;
@@ -836,7 +836,7 @@ void showAll()
 	}
 
 	// 输出销售信息
-	cout << "===== 唱片销售信息 =====" << endl;
+	cout << " 唱片销售信息 " << endl;
 	if(sell_head == 0)
 	{
 		cout << "暂无数据" << endl;
@@ -861,14 +861,14 @@ void showAll()
 }
 
 /*
- * 函数：searchRecord()
- * 功能：查询管理（二级菜单：选信息类型 → 选查询条件 → 输出全部匹配结果）
- * 菜单：7
+函数：searchRecord()
+功能：查询管理（二级菜单：选信息类型 → 选查询条件 → 输出全部匹配结果）
+菜单：7
  */
 void searchRecord()
 {
 	int type;
-	cout << "===== 查询管理 =====" << endl;
+	cout << " 查询管理 " << endl;
 	cout << "  1. 查询唱片基本信息" << endl;
 	cout << "  2. 查询唱片进货信息" << endl;
 	cout << "  3. 查询唱片库存信息" << endl;
@@ -1352,14 +1352,14 @@ void searchRecord()
 }
 
 /*
- * 函数：statistics()
- * 功能：统计管理（库存统计/销售金额统计/进货总量统计）
- * 菜单：8
+函数：statistics()
+功能：统计管理（库存统计/销售金额统计/进货总量统计）
+菜单：8
  */
 void statistics()
 {
 	int type;
-	cout << "===== 统计管理 =====" << endl;
+	cout << " 统计管理 " << endl;
 	cout << "  1. 唱片进货信息统计" << endl;
 	cout << "  2. 唱片库存信息统计" << endl;
 	cout << "  3. 唱片销售信息统计" << endl;
@@ -1596,14 +1596,14 @@ void statistics()
 }
 
 /*
- * 函数：report()
- * 功能：汇总报表
- * 菜单：9（暂空）
+函数：report()
+功能：汇总报表
+菜单：9（暂空）
  */
 /*
- * 函数：report()
- * 功能：汇总报表（唱片信息统计 / 进货日期统计 / 销售日期统计）
- * 菜单：9
+函数：report()
+功能：汇总报表（唱片信息统计 / 进货日期统计 / 销售日期统计）
+菜单：9
  */
 void report()
 {
@@ -1855,13 +1855,13 @@ void report()
 }
 
 /*
- * 函数：saveAndExit()
- * 功能：保存数据并退出
- * 菜单：10
+函数：saveAndExit()
+功能：保存数据并退出
+菜单：10
  */
 /*
- * 函数：freeAllData()
- * 功能：释放所有链表节点内存
+函数：freeAllData()
+功能：释放所有链表节点内存
  */
 void freeAllData()
 {
@@ -1912,15 +1912,15 @@ void saveAndExit()
 	exit(0);
 }
 
-// ===== 主函数 =====
+//主函数
 
 int main()
 {
 	system("chcp 65001 > nul");  // 设置控制台编码为UTF-8，防止中文乱码
 
-	cout << "========================================" << endl;
+	cout << "=========================" << endl;
 	cout << "     唱片销售管理系统     " << endl;
-	cout << "========================================" << endl;
+	cout << "=========================" << endl;
 
 	// 密码校验
 	loadPassword();
@@ -1932,9 +1932,9 @@ int main()
 	int choice;
 	while(1)
 	{
-		cout << "========================================" << endl;
-		cout << "         唱片销售管理系统" << endl;
-		cout << "========================================" << endl;
+		cout << "=========================" << endl;
+		cout << "     唱片销售管理系统     " << endl;
+		cout << "=========================" << endl;
 		cout << "  1. 设置及修改密码" << endl;
 		cout << "  2. 录入唱片基本信息" << endl;
 		cout << "  3. 唱片进货管理" << endl;
@@ -1945,7 +1945,7 @@ int main()
 		cout << "  8. 统计管理" << endl;
 		cout << "  9. 汇总报表" << endl;
 		cout << "  10. 退出系统" << endl;
-		cout << "========================================" << endl;
+		cout << "" << endl;
 		cout << "请选择(1-10): ";
 		cin >> choice;
 		// 处理错误的输入
