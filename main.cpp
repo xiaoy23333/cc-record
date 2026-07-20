@@ -692,7 +692,7 @@ void modifyRecord()
 
 	// 在链表中查找唱片
 	Record *p = record_head;
-	Record *prev = 0;  // 记录前驱节点，删除时用到
+	Record *prev = 0;  // 记录前面的节点
 	while(p != 0)
 	{
 		if(p->id == id)
@@ -1595,11 +1595,7 @@ void statistics()
 	}
 }
 
-/*
-函数：report()
-功能：汇总报表
-菜单：9（暂空）
- */
+
 /*
 函数：report()
 功能：汇总报表（唱片信息统计 / 进货日期统计 / 销售日期统计）
@@ -1633,10 +1629,10 @@ void report()
 		struct
 		{
 			char name[50];
-			int cd_count;       // 唱片数
+			int cd_count;    // 唱片数
 			int total_stock;    // 总库存
 			int total_input;    // 总进货
-			int total_sell;     // 总销售
+			int total_sell;    // 总销售
 		} result[100];
 		int result_count = 0;
 
@@ -1750,7 +1746,7 @@ void report()
 		struct
 		{
 			char date[20];
-			int total_qty;      // 进货总量
+			int total_qty;    // 进货总量
 			int batch_count;    // 进货批数
 		} result[100];
 		int result_count = 0;
@@ -1800,9 +1796,9 @@ void report()
 		struct
 		{
 			char date[20];
-			int total_qty;        // 销售总量
-			double total_amount;  // 销售总额
-			int order_count;      // 订单数
+			int total_qty;    // 销售总量
+			double total_amount;    // 销售总额
+			int order_count;    // 订单数
 		} result[100];
 		int result_count = 0;
 
