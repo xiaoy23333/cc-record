@@ -13,49 +13,49 @@ using namespace std;
 // 唱片基本信息
 typedef struct record
 {
-	int id;    // 唱片编号
-	char name[50];    // 唱片名
-	char singer[50];    // 歌手名
-	char style[30];    // 风格
-	double price;    // 价格
-	char release_date[20];    // 发行日期
-	char note[100];    // 备注
-	struct record *next;    // 链表指针
+	int id;	// 唱片编号
+	char name[50];	// 唱片名
+	char singer[50];	// 歌手名
+	char style[30];	// 风格
+	double price;	// 价格
+	char release_date[20];	// 发行日期
+	char note[100];	// 备注
+	struct record *next;	// 链表指针
 } Record;
 
 // 进货信息
 typedef struct input_record
 {
-	int id;    // 唱片编号
-	char name[50];    // 唱片名称
-	int quantity;    // 进货数量
-	char date[20];    // 进货日期
-	char operator_name[30];    // 进货人
+	int id;	// 唱片编号
+	char name[50];	// 唱片名称
+	int quantity;	// 进货数量
+	char date[20];	// 进货日期
+	char operator_name[30];	// 进货人
 	struct input_record *next;
 } InputRecord;
 
 // 库存信息
 typedef struct stock_record
 {
-	int id;     // 唱片编号
-	char name[50];    // 唱片名称
-	int stock_qty;    // 库存数量
-	int input_qty;    // 进货累计数量
-	int sell_qty;    // 销售累计数量
+	int id;	// 唱片编号
+	char name[50];	// 唱片名称
+	int stock_qty;	// 库存数量
+	int input_qty;	// 进货累计数量
+	int sell_qty;	// 销售累计数量
 	struct stock_record *next;
 } StockRecord;
 
 // 销售信息
 typedef struct sell_record
 {
-	int sell_id;    // 销售编号
-	int record_id;    // 唱片编号
-	char record_name[50];    // 唱片名称
-	double sell_price;    // 销售价格
-	int sell_qty;    // 销售数量
-	double sell_amount;    // 销售金额
-	char customer_name[30];    // 客户名称
-	char sell_date[20];    // 销售日期
+	int sell_id;	// 销售编号
+	int record_id;	// 唱片编号
+	char record_name[50];	// 唱片名称
+	double sell_price;	// 销售价格
+	int sell_qty;	// 销售数量
+	double sell_amount;	// 销售金额
+	char customer_name[30];	// 客户名称
+	char sell_date[20];	// 销售日期
 	struct sell_record *next;
 } SellRecord;
 
@@ -119,6 +119,10 @@ void loadPassword()
 		char pwd[20];
 		cout << "首次使用系统，请设置密码: ";
 		cin >> pwd;
+		for(int i = 0; i < strlen(pwd); i++)
+		{
+			pwd[i] += 1;
+		}
 		fp = fopen(PWD_FILE, "wb");
 		fwrite(pwd, sizeof(char), 20, fp);
 		fclose(fp);
@@ -130,6 +134,10 @@ void loadPassword()
 	char saved_pwd[20];
 	fread(saved_pwd, sizeof(char), 20, fp);
 	fclose(fp);
+	for(int i = 0; i < strlen(saved_pwd); i++)
+	{
+		saved_pwd[i] -= 1;
+	}
 	// 校验密码
 	while(1)
 	{
@@ -345,7 +353,12 @@ void modifyPassword()
 	// 读取保存的密码
 	FILE *fp = fopen(PWD_FILE, "rb");
 	char saved_pwd[20];
+	
 	fread(saved_pwd, sizeof(char), 20, fp);
+	for(int i = 0; i < strlen(saved_pwd); i++)
+	{
+		saved_pwd[i] -= 1;
+	}
 	fclose(fp);
 
 	if(strcmp(old_pwd, saved_pwd) != 0)
@@ -358,6 +371,10 @@ void modifyPassword()
 	cin >> new_pwd;
 
 	fp = fopen(PWD_FILE, "wb");
+	for(int i = 0; i < strlen(new_pwd); i++)
+	{
+		new_pwd[i] += 1;
+	}
 	fwrite(new_pwd, sizeof(char), 20, fp);
 	fclose(fp);
 
@@ -639,6 +656,7 @@ void sellRecord()
 
 	// 更新库存
 	st->stock_qty -= sr->sell_qty;
+	
 	st->sell_qty += sr->sell_qty;
 
 	// 追加销售记录到文件
@@ -647,6 +665,10 @@ void sellRecord()
 	fclose(fp);
 
 	cout << "销售成功！销售编号: " << sr->sell_id << ", 销售金额: " << fixed << setprecision(2) << sr->sell_amount << endl;
+	if(st->stock_qty < 5)
+	{
+		cout << "库存不足5张，请注意补货" << endl;
+	}
 	writeLog("销售", sr->record_name);
 }
 
@@ -665,6 +687,10 @@ void modifyRecord()
 	FILE *fp = fopen(PWD_FILE, "rb");
 	char saved_pwd[20];
 	fread(saved_pwd, sizeof(char), 20, fp);
+	for(int i = 0; i < strlen(saved_pwd); i++)
+	{
+		saved_pwd[i] -= 1;
+	}
 	fclose(fp);
 
 	if(strcmp(input_pwd, saved_pwd) != 0)
@@ -862,7 +888,7 @@ void showAll()
 
 /*
 函数：searchRecord()
-功能：查询管理（二级菜单：选信息类型 → 选查询条件 → 输出全部匹配结果）
+功能：查询管理（二级菜单：选信息类型 选查询条件 输出全部匹配结果）
 菜单：7
  */
 void searchRecord()
@@ -974,7 +1000,7 @@ void searchRecord()
 		}
 		else if(cond == 6)
 		{
-			cout << "请输入发行日期(如2026-07-15): ";
+			cout << "请输入发行日期: ";
 			cin >> keyword;
 			p = record_head;
 			while(p != 0)
@@ -1908,6 +1934,69 @@ void saveAndExit()
 	exit(0);
 }
 
+/*
+函数：cleanAllData()
+功能：释放所有链表节点内存
+ */
+void cleanAllData()
+{
+	char input_pwd[20];
+	cout << "请输入密码以验证身份: ";
+	cin >> input_pwd;
+
+	FILE *fp = fopen(PWD_FILE, "rb");
+	char saved_pwd[20];
+	fread(saved_pwd, sizeof(char), 20, fp);
+	for(int i = 0; i < strlen(saved_pwd); i++)
+	{
+		saved_pwd[i] -= 1;
+	}
+	fclose(fp);
+
+	if(strcmp(input_pwd, saved_pwd) != 0)
+	{
+		cout << "密码错误" << endl;
+		return;
+	}
+	
+
+	if (remove(PWD_FILE) != 0) 
+	{
+        perror("密码文件删除失败");
+    }
+	
+	if (remove(BASE_FILE) != 0) 
+	{
+        perror("基础信息文件删除失败");
+    }
+
+	if (remove(INPUT_FILE) != 0) 
+	{
+        perror("进货文件删除失败");
+    }
+
+	if (remove(STOCK_FILE) != 0) 
+	{
+        perror("库存文件删除失败");
+    }
+
+	if (remove(SELL_FILE) != 0)  
+	{
+        perror("销售文件删除失败");
+    }
+
+	if (remove(LOG_FILE) != 0) 
+	{
+        perror("日志文件删除失败");
+    }
+
+	cout << "已清理数据" << endl;
+	freeAllData();
+	cout << "感谢使用唱片销售管理系统，再见" << endl;
+	exit(0);
+}
+
+
 //主函数
 
 int main()
@@ -1941,8 +2030,9 @@ int main()
 		cout << "  8. 统计管理" << endl;
 		cout << "  9. 汇总报表" << endl;
 		cout << "  10. 退出系统" << endl;
+		cout << "  11. 清除所有数据并退出" << endl;
 		cout << "" << endl;
-		cout << "请选择(1-10): ";
+		cout << "请选择(1-11): ";
 		cin >> choice;
 		// 处理错误的输入
 		if(cin.fail())
@@ -1984,6 +2074,9 @@ int main()
 			break;
 		case 10:
 			saveAndExit();
+			break;
+		case 11:
+			cleanAllData();
 			break;
 		default:
 			cout << "输入有误，请重新选择！" << endl;
